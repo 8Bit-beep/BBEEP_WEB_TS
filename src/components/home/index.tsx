@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const NoneLoadingMain = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default NoneLoadingMain
+export default NoneLoadingMain;

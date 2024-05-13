@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const studentTow = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default studentTow
+export default studentTow;
