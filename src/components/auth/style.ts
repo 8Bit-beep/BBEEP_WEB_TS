@@ -99,7 +99,7 @@ export const LoginButtonWrapper = styled.div`
   display:flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 
 `
 
@@ -114,7 +114,7 @@ export const LoginButton = styled.button`
   font-size: 15px;
 `;
 
-export const NavSignIn = styled.span`
+export const NavLostPassWord = styled.span`
   font-size: 15px;
   color: #acadae;
   margin-left: 300px;
