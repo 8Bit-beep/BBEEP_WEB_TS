@@ -9,16 +9,12 @@ interface User {
 }
 
 const useLogin = () => {
-  // const [id, setId] = useState<string>("");
-  // const [pw, setPw] = useState<string>("");
+  
   const [user, setUser] = useState<User>({
     id: "",
     password: "",
   });
 
-  // const idEventhandle = (e: any) => {
-  //   setId(e.target.value);
-  // };
 
   const eventHandle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
