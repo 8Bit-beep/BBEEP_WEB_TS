@@ -1,9 +1,13 @@
 import React from "react";
 import "./App.css";
-import Login from "src/components/auth/index";
+import Router from "./components/router";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 }
 
 export default App;
