@@ -25,7 +25,6 @@ const Login = () => {
             </S.LoginRememberWrapper>
             <S.LoginButtonWrapper>
               <S.LoginButton onClick={loginButton}>로그인</S.LoginButton>
-              <S.NavLostPassWord>비밀번호를 잊어버렸나요?</S.NavLostPassWord>
             </S.LoginButtonWrapper>
           </S.LoginWrapper>
         </S.MainWrapper>
