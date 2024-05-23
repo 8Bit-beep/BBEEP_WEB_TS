@@ -17,6 +17,7 @@ const Router = () => {
       <RecoilRoot>
         <GlobalStyles />
         <BrowserRouter>
+        
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<NoneLoadingMain />} />
