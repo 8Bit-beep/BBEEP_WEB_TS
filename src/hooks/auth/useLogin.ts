@@ -1,7 +1,11 @@
 import { useState, useCallback } from "react";
 import CONFIG from "src/config/config.json";
-import Cookies from "js-cookie";
 import axios from "axios";
+import { errorToast, sucessToast } from "src/libs/toast/toast";
+import { useNavigate } from "react-router-dom";
+import { loginResponse } from "src/types/auth/login.type";
+import cookie from "src/libs/cookie/cookie";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "src/constants/token/token.constants";
 
 interface User {
   id: string;
@@ -9,6 +13,7 @@ interface User {
 }
 
 const useLogin = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User>({
     id: "",
     password: "",
@@ -19,7 +24,7 @@ const useLogin = () => {
       const { name, value } = e.target;
       setUser((prev) => ({ ...prev, [name]: value }));
     },
-    [setUser]
+    [setUser],
   );
 
   const loginButton = async () => {
@@ -28,17 +33,18 @@ const useLogin = () => {
     } else {
       try {
         await axios
-          .post(`${CONFIG.serverUrl}/auth/sign-in`, {
+          .post<loginResponse>(`${CONFIG.serverUrl}/auth/sign-in`, {
             id: user.id,
             password: user.password,
           })
           .then((response) => {
-            alert("로그인 성공");
-            Cookies.set("accessToken", response.data.accessToken);
+            sucessToast("로그인 성공");
+            navigate("/check-student/first-grade");
+            cookie.setCookie(ACCESS_TOKEN_KEY, response.data.accessToken);
+            cookie.setCookie(REFRESH_TOKEN_KEY, response.data.refreshToken);
           });
       } catch (error) {
-        
-        console.error(error);
+        errorToast("로그인 실패");
       }
     }
   };
