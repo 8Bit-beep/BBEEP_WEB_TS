@@ -9,12 +9,10 @@ interface User {
 }
 
 const useLogin = () => {
-  
   const [user, setUser] = useState<User>({
     id: "",
     password: "",
   });
-
 
   const eventHandle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +37,7 @@ const useLogin = () => {
             Cookies.set("accessToken", response.data.accessToken);
           });
       } catch (error) {
+        
         console.error(error);
       }
     }
