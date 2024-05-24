@@ -41,11 +41,11 @@ const CheckStudentThree = () => {
                 <S.ViewInfoStudentName>{std.name}</S.ViewInfoStudentName>
                 <S.ViewInfoStudentClassNumber>
                   {std.num >= 10
-                    ? String(std.grade) + String(std.cls) + String(std.num)
-                    : `${String(std.grade) + String(std.cls)}0${String(std.num)}`}
+                    ? `1${isClickMenu.substring(0, 1)}${std.num}`
+                    : `1${isClickMenu.substring(0, 1)}0${std.num}`}
                 </S.ViewInfoStudentClassNumber>
                 <S.ViewinfoStudentFloor>{std.floor}</S.ViewinfoStudentFloor>
-                <S.ViewInfoStudentClass>{std.cls}</S.ViewInfoStudentClass>
+                <S.ViewInfoStudentClass>{std.roomName}</S.ViewInfoStudentClass>
               </S.ViewInfoStudentWrap>
             ))}
         </S.ViewInfomationWrap>
