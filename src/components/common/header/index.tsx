@@ -19,7 +19,7 @@ const Header = () => {
       <img src={Logo} alt="로고" onClick={() => navigate("/")} />
       <S.SearchInputWrap>
         <img src={SearchIcon} alt="돋보기" />
-        <input type="text" />
+        <input type="text" value={header.name} onChange={header.searchName} />
       </S.SearchInputWrap>
       <S.ButtonWrap>
         <S.NavigationButton

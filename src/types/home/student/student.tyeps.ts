@@ -1,6 +1,6 @@
 export interface StudentClassList {
   name: string;
   num: number;
-  floor: string;
+  floor: number;
   roomName: string;
 }
