@@ -21,6 +21,8 @@ import Proj6 from "src/assets/imgs/Proj6.svg";
 import { StudentClassList } from "src/types/home/student/student.tyeps";
 import { bbeepAxios } from "src/libs/axios/customAxios";
 import { errorToast } from "src/libs/toast/toast";
+import { useRecoilState } from "recoil";
+import { StudentAtom } from "src/stores/home/checkStudent/student.store";
 
 const useCheckStudent = () => {
   const ImgDataFirstFloor = [
@@ -64,7 +66,7 @@ const useCheckStudent = () => {
   const [isClicked, setIsClicked] = useState("");
   const [isClickStu, setIsClickStu] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
-  const [studentClassList, setStudentClassList] = useState<StudentClassList[]>([]);
+  const [studentClassList, setStudentClassList] = useRecoilState(StudentAtom);
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const grade = Number(isClickCategory.substring(0, 1));
   const cls = Number(isClickMenu.substring(0, 1));

@@ -34,7 +34,7 @@ export const SearchInputWrap = styled.div`
 
   input {
     width: 88%;
-    height: 100%;
+    height: 90%;
 
     border: none;
     padding-left: 2%;
