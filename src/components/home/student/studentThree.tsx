@@ -41,8 +41,8 @@ const CheckStudentThree = () => {
                 <S.ViewInfoStudentName>{std.name}</S.ViewInfoStudentName>
                 <S.ViewInfoStudentClassNumber>
                   {std.num >= 10
-                    ? `1${isClickMenu.substring(0, 1)}${std.num}`
-                    : `1${isClickMenu.substring(0, 1)}0${std.num}`}
+                    ? `3${isClickMenu.substring(0, 1)}${std.num}`
+                    : `3${isClickMenu.substring(0, 1)}0${std.num}`}
                 </S.ViewInfoStudentClassNumber>
                 <S.ViewinfoStudentFloor>{std.floor}</S.ViewinfoStudentFloor>
                 <S.ViewInfoStudentClass>{std.roomName}</S.ViewInfoStudentClass>

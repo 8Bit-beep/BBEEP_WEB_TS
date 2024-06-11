@@ -66,7 +66,7 @@ const useCheckStudent = () => {
   const [isClicked, setIsClicked] = useState("");
   const [isClickStu, setIsClickStu] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
-  const [studentClassList, setStudentClassList] = useRecoilState(StudentAtom);
+  const [studentClassList, setStudentClassList] = useState<StudentClassList[]>([]);
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const grade = Number(isClickCategory.substring(0, 1));
   const cls = Number(isClickMenu.substring(0, 1));
@@ -77,17 +77,10 @@ const useCheckStudent = () => {
 
   const checkStudent = async () => {
     try {
-      await bbeepAxios
-        .get(`/students/member`, {
-          params: {
-            grade,
-            cls,
-          },
-        })
-        .then((res) => {
-          setStudentClassList(res.data);
-          console.log(studentClassList);
-        });
+      await bbeepAxios.get(`/students/member?grade=${grade}&cls=${cls}`).then((res) => {
+        setStudentClassList(res.data);
+        console.log(studentClassList);
+      });
     } catch (error) {
       errorToast("학생 조회 실패");
     }
