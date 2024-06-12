@@ -21,60 +21,29 @@ import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
 import { FloorType } from "@src/types/home/class/floor.types";
 
 const useCheckClass = () => {
-  const imgDataFirstFloor = [
-    { default: `${Proj1D}`, text: "프로젝트1실", id: 1 },
-    { default: `${Proj2D}`, text: "프로젝트2실", id: 2 },
-  ];
-  const imgDataSecondFloor = [
-    { default: `${Proj3D}`, text: "프로젝트3실", id: 3 },
-    { default: `${Proj4D}`, text: "프로젝트4실", id: 4 },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab1실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab2실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab3실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab4실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab5실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab6실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab7실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab8실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab9실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab10실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab11실" },
-  ];
-
-  const imgDataThirdFloor = [
-    { default: `${Proj5D}`, clicked: `${Proj5}` },
-    { default: `${Proj6D}`, clicked: `${Proj6}` },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab12실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab13실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab14실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab15실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab16실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab17실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab18실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab19실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab20실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab21실" },
-    { default: `${LabD}`, clicked: `${Lab}`, text: "Lab22실" },
-  ];
-
   const location = useLocation();
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState("");
   const [isClickStu, setIsClickStu] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
-  const [code, setCode] = useState<number>();
   const [classList, setClassList] = useRecoilState(ClassAtom);
   const [classStuList, setClassStuList] = useRecoilState(ClassStuAtom);
   const [floorData, setFloorData] = useState<FloorType[]>([]);
+  const [code, setCode] = useState<number>();
   const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
+  const imgData = [{ default: `${LabD}`, roomName: className }];
 
-  const floor = Number(isClickCategory.substring(0, 2));
+  const floor = Number(isClickCategory.substring(0, 1));
 
   useEffect(() => {
     checkClass();
     checkClassStu();
-  }, [isClickCategory, isClickMenu]);
+  }, [isClickMenu]);
+
+  useEffect(() => {
+    loadFloorData();
+  }, [isClickCategory]);
 
   const checkClass = async () => {
     try {
@@ -122,14 +91,13 @@ const useCheckClass = () => {
   };
 
   return {
-    imgDataFirstFloor,
-    imgDataSecondFloor,
-    imgDataThirdFloor,
+    imgData,
     isClicked,
     isClickStu,
     isClickMenu,
     classList,
     classStuList,
+    floorData,
     handleImgChange,
     handleClickMenu,
     handleClickStu,

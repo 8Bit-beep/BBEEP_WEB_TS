@@ -6,7 +6,7 @@ import ModalPortal from "src/components/portal/modalpotal";
 import Modal from "src/components/modal/classmodal";
 
 const ClassOne = () => {
-  const { isClickStu, handleClickMenu, classList, handleClickStu, imgDataFirstFloor, classStuList } = useCheckClass();
+  const { isClickStu, handleClickMenu, classList, handleClickStu, imgData, classStuList, floorData } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -22,9 +22,11 @@ const ClassOne = () => {
         <S.CheckClassMain>
           <S.ViewInfomationWrap>
             <S.SelectClassImgWrap>
-              {imgDataFirstFloor.map((item, idx) => (
-                <div key={idx} onClick={() => handleClickMenu(item.text)}>
+              {imgData.map((item, idx) => (
+                <div key={idx} onClick={() => handleClickMenu(item.roomName)}>
+                  <h1></h1>
                   <img src={item.default} onClick={ModalButton} />
+                  <span>{item.roomName}</span>
                 </div>
               ))}
             </S.SelectClassImgWrap>
@@ -42,12 +44,7 @@ const ClassOne = () => {
                 ))}
             </div>
             {isClick === true ? (
-              <Modal
-                DeleteButton={ModalButton}
-                classList={classList}
-                imgDataFirstFloor={imgDataFirstFloor}
-                classStuList={classStuList}
-              />
+              <Modal DeleteButton={ModalButton} classList={classList} classStuList={classStuList} />
             ) : (
               <></>
             )}

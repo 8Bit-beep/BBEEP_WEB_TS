@@ -12,35 +12,24 @@ interface imgItem {
 interface ModalProps {
   DeleteButton: () => void;
   classList: ClassList[];
-  imgDataFirstFloor: imgItem[];
   classStuList: ClassStuList[];
 }
 
-const Modal = ({ DeleteButton, classList, imgDataFirstFloor, classStuList, }: ModalProps) => {
-  const [selectedId, setSelectedId] = useState(imgDataFirstFloor[0]?.id || null);
-
-  const handleChangeId = (newId: any) => {
-    setSelectedId(newId);
-  };
-
-  const selectedItem = imgDataFirstFloor.find((imgItem) => imgItem.id === selectedId);
-
+const Modal = ({ DeleteButton, classList, classStuList }: ModalProps) => {
   return (
     <S.Wrapper onClick={DeleteButton}>
       <S.ModalWrapper>
-        {imgDataFirstFloor.map((imgItem, idx) =>
+        {/* {imgDataFirstFloor.map((imgItem, idx) =>
           imgItem.id === selectedId ? (
             <S.ModalTitle key={idx} onClick={() => handleChangeId(imgItem.id)}>
               {imgItem.text}{" "}
             </S.ModalTitle>
-          ) : null
-        )}
+          ) : null,
+        )} */}
 
         <S.ModalListWrap>
           {classStuList.map((item) => (
-            <S.ModalListContent key={item.num}>
-              {item.userName}
-            </S.ModalListContent>
+            <S.ModalListContent key={item.num}>{item.userName}</S.ModalListContent>
           ))}
         </S.ModalListWrap>
       </S.ModalWrapper>
