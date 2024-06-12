@@ -1,6 +1,7 @@
 import { ClassList } from "src/types/home/class/class.types";
 import * as S from "./style";
-import {  useState } from "react";
+import { useState } from "react";
+import { ClassStuList } from "src/types/home/class/classStu.types";
 
 interface imgItem {
   default: string;
@@ -12,9 +13,10 @@ interface ModalProps {
   DeleteButton: () => void;
   classList: ClassList[];
   imgDataFirstFloor: imgItem[];
+  classStuList: ClassStuList[];
 }
 
-const Modal = ({ DeleteButton, classList, imgDataFirstFloor }: ModalProps) => {
+const Modal = ({ DeleteButton, classList, imgDataFirstFloor, classStuList, }: ModalProps) => {
   const [selectedId, setSelectedId] = useState(imgDataFirstFloor[0]?.id || null);
 
   const handleChangeId = (newId: any) => {
@@ -35,8 +37,10 @@ const Modal = ({ DeleteButton, classList, imgDataFirstFloor }: ModalProps) => {
         )}
 
         <S.ModalListWrap>
-          {classList.map((item, idx) => (
-            <S.ModalListContent key={idx}>{item.name}</S.ModalListContent>
+          {classStuList.map((item) => (
+            <S.ModalListContent key={item.num}>
+              {item.userName}
+            </S.ModalListContent>
           ))}
         </S.ModalListWrap>
       </S.ModalWrapper>

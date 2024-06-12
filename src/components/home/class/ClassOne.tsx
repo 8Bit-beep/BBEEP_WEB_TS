@@ -6,7 +6,7 @@ import ModalPortal from "src/components/portal/modalpotal";
 import Modal from "src/components/modal/classmodal";
 
 const ClassOne = () => {
-  const { isClickStu, handleClickMenu, classList, handleClickStu, imgDataFirstFloor } = useCheckClass();
+  const { isClickStu, handleClickMenu, classList, handleClickStu, imgDataFirstFloor, classStuList } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -38,14 +38,16 @@ const ClassOne = () => {
                     key={idx}
                     $isclicked={isClickStu === cls.name ? "true" : "false"}
                     onClick={() => handleClickStu(cls.name)}
-                  >
-                    <S.ViewInfoStudentName>{cls.name}</S.ViewInfoStudentName>
-                    <S.ViewinfoStudentFloor>{cls.floor}</S.ViewinfoStudentFloor>
-                  </S.ViewInfoStudentWrap>
+                  ></S.ViewInfoStudentWrap>
                 ))}
             </div>
             {isClick === true ? (
-              <Modal DeleteButton={ModalButton} classList={classList} imgDataFirstFloor={imgDataFirstFloor} />
+              <Modal
+                DeleteButton={ModalButton}
+                classList={classList}
+                imgDataFirstFloor={imgDataFirstFloor}
+                classStuList={classStuList}
+              />
             ) : (
               <></>
             )}

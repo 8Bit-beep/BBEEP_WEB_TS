@@ -100,7 +100,6 @@ export const ViewInfoStudentWrap = styled.div<{ $isclicked: string }>`
   display: flex;
   flex-direction: row;
 
-  border-bottom: 1px solid #adadad;
   align-items: center;
   align-self: center;
 

@@ -16,15 +16,17 @@ import { bbeepAxios } from "src/libs/axios/customAxios";
 import { errorToast } from "src/libs/toast/toast";
 import { useRecoilState } from "recoil";
 import { ClassAtom } from "src/stores/home/checkClass/class.store";
+import { StudentAtom } from "src/stores/home/checkStudent/student.store";
+import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
 
 const useCheckClass = () => {
   const imgDataFirstFloor = [
-    { default: `${Proj1D}`, text: "Proj1실", id: 1 },
-    { default: `${Proj2D}`, text: "Proj2실", id: 2 },
+    { default: `${Proj1D}`, text: "프로젝트1실", id: 1 },
+    { default: `${Proj2D}`, text: "프로젝트2실", id: 2 },
   ];
   const imgDataSecondFloor = [
-    { default: `${Proj3D}`, text: "Proj3실", id: 3 },
-    { default: `${Proj4D}`, text: "Proj4실", id: 4 },
+    { default: `${Proj3D}`, text: "프로젝트3실", id: 3 },
+    { default: `${Proj4D}`, text: "프로젝트4실", id: 4 },
     { default: `${LabD}`, clicked: `${Lab}`, text: "Lab1실" },
     { default: `${LabD}`, clicked: `${Lab}`, text: "Lab2실" },
     { default: `${LabD}`, clicked: `${Lab}`, text: "Lab3실" },
@@ -59,11 +61,14 @@ const useCheckClass = () => {
   const [isClicked, setIsClicked] = useState("");
   const [isClickStu, setIsClickStu] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
+  const [isClickId, setisClickId] = useState<string>();
   const [classList, setClassList] = useRecoilState(ClassAtom);
+  const [classStuList, setClassStuList] = useRecoilState(ClassStuAtom);
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
 
   useEffect(() => {
     checkClass();
+    checkClassStu();
   }, [isClickCategory, isClickMenu]);
 
   const checkClass = async () => {
@@ -73,7 +78,18 @@ const useCheckClass = () => {
         console.log(classList);
       });
     } catch (error) {
-      errorToast("학생 조회 실패");
+      errorToast("실 조회 실패");
+    }
+  };
+
+  const checkClassStu = async () => {
+    try {
+      await bbeepAxios.get(`/beep/attendances?code=${isClickId}`).then((res) => {
+        setClassStuList(res.data);
+        console.log(classStuList);
+      });
+    } catch (error) {
+      errorToast("출석 조회 실패");
     }
   };
 
@@ -83,6 +99,10 @@ const useCheckClass = () => {
 
   const handleClickStu = (itemName: string) => {
     setIsClickStu(itemName);
+  };
+
+  const handleClickId = (itemCode: string) => {
+    setisClickId((prevItem) => (prevItem === itemCode ? "" : itemCode));
   };
 
   const handleImgChange = (itemName: string) => {
@@ -97,6 +117,7 @@ const useCheckClass = () => {
     isClickStu,
     isClickMenu,
     classList,
+    classStuList,
     handleImgChange,
     handleClickMenu,
     handleClickStu,
