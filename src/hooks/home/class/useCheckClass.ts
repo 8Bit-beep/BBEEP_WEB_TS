@@ -18,6 +18,7 @@ import { useRecoilState } from "recoil";
 import { ClassAtom } from "src/stores/home/checkClass/class.store";
 import { StudentAtom } from "src/stores/home/checkStudent/student.store";
 import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
+import { FloorType } from "@src/types/home/class/floor.types";
 
 const useCheckClass = () => {
   const imgDataFirstFloor = [
@@ -61,10 +62,14 @@ const useCheckClass = () => {
   const [isClicked, setIsClicked] = useState("");
   const [isClickStu, setIsClickStu] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
-  const [isClickId, setisClickId] = useState<string>();
+  const [code, setCode] = useState<number>();
   const [classList, setClassList] = useRecoilState(ClassAtom);
   const [classStuList, setClassStuList] = useRecoilState(ClassStuAtom);
+  const [floorData, setFloorData] = useState<FloorType[]>([]);
+  const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
+
+  const floor = Number(isClickCategory.substring(0, 2));
 
   useEffect(() => {
     checkClass();
@@ -84,13 +89,20 @@ const useCheckClass = () => {
 
   const checkClassStu = async () => {
     try {
-      await bbeepAxios.get(`/beep/attendances?code=${isClickId}`).then((res) => {
-        setClassStuList(res.data);
-        console.log(classStuList);
-      });
+      await bbeepAxios.get(`/beep/attendances?code=${code}`).then((res) => {});
     } catch (error) {
       errorToast("출석 조회 실패");
     }
+  };
+
+  const loadFloorData = async () => {
+    try {
+      await bbeepAxios.get(`/beep/rooms/floor?floor=${floor}`).then((res) => {
+        setFloorData(res.data);
+        setCode(res.data.code);
+        setClassName(res.data.name);
+      });
+    } catch (error) {}
   };
 
   const handleClickMenu = (itemName: string) => {
@@ -101,9 +113,9 @@ const useCheckClass = () => {
     setIsClickStu(itemName);
   };
 
-  const handleClickId = (itemCode: string) => {
-    setisClickId((prevItem) => (prevItem === itemCode ? "" : itemCode));
-  };
+  // const handleClickId = (itemCode: string) => {
+  //   setisClickId((prevItem) => (prevItem === itemCode ? "" : itemCode));
+  // };
 
   const handleImgChange = (itemName: string) => {
     setIsClicked(itemName);
