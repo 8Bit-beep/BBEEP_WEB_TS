@@ -13,22 +13,31 @@ import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
 import { FloorType } from "@src/types/home/class/floor.types";
 import axios from "axios";
 import { ACCESS_TOKEN_KEY } from "@src/constants/token/token.constants";
+import { ClassStuList } from "@src/types/home/class/classStu.types";
 
 const useCheckClass = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState("");
-  const [isClickStu, setIsClickStu] = useState<string>("");
+  const [isClickCls, setIsClickCls] = useState<string>("");
   const [isClickMenu, setIsClickMenu] = useState<string>("");
   const [classList, setClassList] = useRecoilState(ClassAtom);
-  const [classStuList, setClassStuList] = useRecoilState(ClassStuAtom);
+  const [classStuList, setClassStuList] = useState<ClassStuList[]>([]);
   const [floorData, setFloorData] = useState<FloorType[]>([]);
-  const [code, setCode] = useState<number>();
+  const [code, setCode] = useState<string>();
   const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const imgData = [{ default: `${LabD}`, roomName: className }];
   const floor = Number(isClickCategory.substring(0, 1));
-  const myRoomName = [{ roomName: className }];
+
+  // console.log(
+  //   "dkd",
+  //   floorData.map((item) => item.roomName)
+  // );
+  console.log(
+    "kdkd",
+    classStuList.map((item) => item.userName)
+  );
 
   useEffect(() => {
     checkClass();
@@ -60,7 +69,9 @@ const useCheckClass = () => {
 
   const checkClassStu = async () => {
     try {
-      await bbeepAxios.get(`/beep/attendances?code=${code}`).then((res) => {});
+      await bbeepAxios.get(`/beep/attendances?code=${code}`).then((res) => {
+        setClassStuList(res.data);
+      });
     } catch (error) {
       errorToast("출석 조회 실패");
     }
@@ -69,8 +80,8 @@ const useCheckClass = () => {
   const loadFloorData = async () => {
     try {
       await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=1`).then((res) => {
-        setCode(res.data.code);
-        setClassName(JSON.parse(res.request.response)[0].roomName);
+        setCode(res.data);
+        setFloorData(res.data);
       });
     } catch (error) {
       console.log("Error", error);
@@ -81,8 +92,8 @@ const useCheckClass = () => {
     setIsClickMenu((prevItem) => (prevItem === itemName ? "" : itemName));
   };
 
-  const handleClickStu = (itemName: string) => {
-    setIsClickStu(itemName);
+  const handleClickCls = (itemName: string) => {
+    setIsClickCls(itemName);
   };
 
   const handleImgChange = (itemName: string) => {
@@ -92,15 +103,14 @@ const useCheckClass = () => {
   return {
     imgData,
     isClicked,
-    isClickStu,
+    isClickCls,
     isClickMenu,
     classList,
     classStuList,
     floorData,
-    myRoomName,
     handleImgChange,
     handleClickMenu,
-    handleClickStu,
+    handleClickCls,
   };
 };
 

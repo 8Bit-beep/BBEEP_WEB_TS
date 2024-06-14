@@ -4,20 +4,13 @@ import { useState } from "react";
 import { ClassStuList } from "src/types/home/class/classStu.types";
 import useCheckClass from "src/hooks/home/class/useCheckClass";
 
-interface imgItem {
-  default: string;
-  text: string;
-  id: number;
-}
-
 interface ModalProps {
   DeleteButton: () => void;
   classList: ClassList[];
-  classStuList: ClassStuList[];
 }
 
-const Modal = ({ DeleteButton, classList, classStuList }: ModalProps) => {
-  const { myRoomName } = useCheckClass();
+const Modal = ({ DeleteButton, classList }: ModalProps) => {
+  const { floorData, classStuList } = useCheckClass();
   return (
     <S.Wrapper onClick={DeleteButton}>
       <S.ModalWrapper>
@@ -29,13 +22,13 @@ const Modal = ({ DeleteButton, classList, classStuList }: ModalProps) => {
           ) : null,
         )} */}
 
-        {myRoomName.map((item, idx) => (
+        {floorData.map((item, idx) => (
           <S.ModalTitle key={idx}>{item.roomName}</S.ModalTitle>
         ))}
 
         <S.ModalListWrap>
-          {classStuList.map((item) => (
-            <S.ModalListContent key={item.num}>{item.userName}</S.ModalListContent>
+          {classStuList.map((item, idx) => (
+            <S.ModalListContent key={idx}>{item.userName}</S.ModalListContent>
           ))}
         </S.ModalListWrap>
       </S.ModalWrapper>

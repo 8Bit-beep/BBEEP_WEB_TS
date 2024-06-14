@@ -6,7 +6,7 @@ import ModalPortal from "src/components/portal/modalpotal";
 import Modal from "src/components/modal/classmodal";
 
 const ClassOne = () => {
-  const { isClickStu, handleClickMenu, classList, handleClickStu, imgData, classStuList, floorData } = useCheckClass();
+  const { isClickCls, handleClickMenu, classList, handleClickCls, imgData, classStuList,  } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -31,19 +31,21 @@ const ClassOne = () => {
             </S.SelectClassImgWrap>
             {/* <img src={isClickMenu === "Proj1실" ? Proj : ProjD} alt="" onClick={() => handleClickMenu("Proj1실")} />
               <img src={isClickMenu === "Proj2실" ? Proj2 : Proj2D} alt="" onClick={() => handleClickMenu("Proj2실")} /> */}
-            <div>
-              {classList !== null &&
-                classList !== undefined &&
-                classList.map((cls, idx) => (
-                  <S.ViewInfoStudentWrap
-                    key={idx}
-                    $isclicked={isClickStu === cls.name ? "true" : "false"}
-                    onClick={() => handleClickStu(cls.name)}
-                  ></S.ViewInfoStudentWrap>
+
+            {/* {
+              <div>
+                {floorData.map((item, idx) => (
+                  <div key={idx}>
+                    <span> {item.roomName}</span>
+                  </div>
                 ))}
-            </div>
+              </div>
+            } */}
+
+            
+            
             {isClick === true ? (
-              <Modal DeleteButton={ModalButton} classList={classList} classStuList={classStuList} />
+              <Modal DeleteButton={ModalButton} classList={classList} />
             ) : (
               <></>
             )}
