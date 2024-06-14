@@ -2,6 +2,7 @@ import { ClassList } from "src/types/home/class/class.types";
 import * as S from "./style";
 import { useState } from "react";
 import { ClassStuList } from "src/types/home/class/classStu.types";
+import useCheckClass from "src/hooks/home/class/useCheckClass";
 
 interface imgItem {
   default: string;
@@ -16,6 +17,7 @@ interface ModalProps {
 }
 
 const Modal = ({ DeleteButton, classList, classStuList }: ModalProps) => {
+  const { myRoomName } = useCheckClass();
   return (
     <S.Wrapper onClick={DeleteButton}>
       <S.ModalWrapper>
@@ -26,6 +28,10 @@ const Modal = ({ DeleteButton, classList, classStuList }: ModalProps) => {
             </S.ModalTitle>
           ) : null,
         )} */}
+
+        {myRoomName.map((item, idx) => (
+          <S.ModalTitle key={idx}>{item.roomName}</S.ModalTitle>
+        ))}
 
         <S.ModalListWrap>
           {classStuList.map((item) => (

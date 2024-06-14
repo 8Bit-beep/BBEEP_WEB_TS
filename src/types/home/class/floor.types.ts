@@ -1,4 +1,6 @@
 export interface FloorType {
-  code: number;
-  name: string;
+  data: {
+    code: number;
+    name: string;
+  };
 }

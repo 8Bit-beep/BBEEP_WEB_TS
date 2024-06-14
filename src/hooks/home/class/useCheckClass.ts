@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import UseSideBarNavigation from "src/utils/SideBar/useSideBarNavigation";
 
-import Lab from "src/assets/imgs/Lab.svg";
+import token from "../../../libs/token/token";
 import LabD from "src/assets/imgs/LabD.svg";
-import Proj1D from "src/assets/imgs/Proj1D.svg";
-import Proj2D from "src/assets/imgs/Proj2D.svg";
-import Proj3D from "src/assets/imgs/Proj3D.svg";
-import Proj4D from "src/assets/imgs/Proj4D.svg";
-import Proj5D from "src/assets/imgs/Proj5D.svg";
-import Proj5 from "src/assets/imgs/Proj5.svg";
-import Proj6D from "src/assets/imgs/Proj6D.svg";
-import Proj6 from "src/assets/imgs/Proj6.svg";
+
 import { bbeepAxios } from "src/libs/axios/customAxios";
 import { errorToast } from "src/libs/toast/toast";
 import { useRecoilState } from "recoil";
 import { ClassAtom } from "src/stores/home/checkClass/class.store";
-import { StudentAtom } from "src/stores/home/checkStudent/student.store";
 import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
 import { FloorType } from "@src/types/home/class/floor.types";
+import axios from "axios";
+import { ACCESS_TOKEN_KEY } from "@src/constants/token/token.constants";
 
 const useCheckClass = () => {
   const location = useLocation();
@@ -33,8 +27,8 @@ const useCheckClass = () => {
   const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const imgData = [{ default: `${LabD}`, roomName: className }];
-
   const floor = Number(isClickCategory.substring(0, 1));
+  const myRoomName = [{ roomName: className }];
 
   useEffect(() => {
     checkClass();
@@ -45,11 +39,19 @@ const useCheckClass = () => {
     loadFloorData();
   }, [isClickCategory]);
 
+  // className 업데이트 후에 실행될 useEffect 추가
+  useEffect(() => {
+    if (classList) {
+      // className이 업데이트된 후 실행할 작업
+      // console.log("ClassName has been updated:", classList);
+      // 필요한 추가 작업을 이곳에 작성
+    }
+  }, [classList]);
+
   const checkClass = async () => {
     try {
-      await bbeepAxios.get(`/beep/rooms?name=${isClickMenu}`).then((res) => {
+      await bbeepAxios.get(`/beep/rooms/name?name=${isClickMenu}`).then((res) => {
         setClassList(res.data);
-        console.log(classList);
       });
     } catch (error) {
       errorToast("실 조회 실패");
@@ -66,12 +68,13 @@ const useCheckClass = () => {
 
   const loadFloorData = async () => {
     try {
-      await bbeepAxios.get(`/beep/rooms/floor?floor=${floor}`).then((res) => {
-        setFloorData(res.data);
+      await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=1`).then((res) => {
         setCode(res.data.code);
-        setClassName(res.data.name);
+        setClassName(JSON.parse(res.request.response)[0].roomName);
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
 
   const handleClickMenu = (itemName: string) => {
@@ -81,10 +84,6 @@ const useCheckClass = () => {
   const handleClickStu = (itemName: string) => {
     setIsClickStu(itemName);
   };
-
-  // const handleClickId = (itemCode: string) => {
-  //   setisClickId((prevItem) => (prevItem === itemCode ? "" : itemCode));
-  // };
 
   const handleImgChange = (itemName: string) => {
     setIsClicked(itemName);
@@ -98,6 +97,7 @@ const useCheckClass = () => {
     classList,
     classStuList,
     floorData,
+    myRoomName,
     handleImgChange,
     handleClickMenu,
     handleClickStu,

@@ -24,7 +24,6 @@ const ClassOne = () => {
             <S.SelectClassImgWrap>
               {imgData.map((item, idx) => (
                 <div key={idx} onClick={() => handleClickMenu(item.roomName)}>
-                  <h1></h1>
                   <img src={item.default} onClick={ModalButton} />
                   <span>{item.roomName}</span>
                 </div>
