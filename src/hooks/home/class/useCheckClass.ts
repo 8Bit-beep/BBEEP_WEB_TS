@@ -27,12 +27,20 @@ const useCheckClass = () => {
   const [array, setArray] = useState<string[]>([]);
 
   useEffect(() => {
+    checkClass();
+  }, [className]);
+
+  useEffect(() => {
+    checkClassStu();
+  }, [code]);
+
+  useEffect(() => {
     loadFloorData();
   }, [isClickCategory]);
 
   const checkClass = async () => {
     try {
-      await bbeepAxios.get(`/beep/rooms/name?name=${isClickMenu}`).then((res) => {
+      await bbeepAxios.get(`/beep/rooms/name?name=${className}`).then((res) => {
         setClassList(res.data);
       });
     } catch (error) {
@@ -87,6 +95,7 @@ const useCheckClass = () => {
     className,
     floorData,
     array,
+    loadFloorData,
     handleImgChange,
     handleClickMenu,
     handleClickCls,
