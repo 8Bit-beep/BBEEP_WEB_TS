@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Router from "src/components/router/router";
+import Router from "src/components/router/index";
 function App() {
   return (
     <div className="App">

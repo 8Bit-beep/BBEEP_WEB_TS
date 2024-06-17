@@ -27,11 +27,6 @@ const useCheckClass = () => {
   const [array, setArray] = useState<string[]>([]);
 
   useEffect(() => {
-    checkClass();
-    checkClassStu();
-  }, []);
-
-  useEffect(() => {
     loadFloorData();
   }, [isClickCategory]);
 
@@ -60,7 +55,7 @@ const useCheckClass = () => {
       await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=${isClickCategory.substring(0, 1)}`).then((res) => {
         setCode(res.data.code);
         setFloorData(res.data);
-      }); 
+      });
     } catch (error) {
       console.log("Error", error);
     }

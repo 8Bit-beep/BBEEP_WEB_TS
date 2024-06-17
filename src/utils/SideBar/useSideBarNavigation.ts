@@ -9,7 +9,7 @@ interface NavigationProps {
 }
 
 const UseSideBarNavigation = ({ location, navigate }: NavigationProps) => {
-  const [isClickCategory, setIsClickCategory] = useState("1층");
+  const [isClickCategory, setIsClickCategory] = useState<string>("");
 
   useEffect(() => {
     const handleNavigation = () => {

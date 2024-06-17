@@ -7,7 +7,17 @@ import Modal from "src/components/modal/classmodal";
 import LabD from "src/assets/imgs/LabD.svg";
 
 const ClassTwo = () => {
-  const { isClickCls, handleClickMenu, classList, handleClickCls, imgData, classStuList, floorData, className } = useCheckClass();
+  const {
+    isClickCls,
+    handleClickMenu,
+    classList,
+    handleClickCls,
+    imgData,
+    classStuList,
+    floorData,
+    className,
+    handleRoomName,
+  } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -19,31 +29,25 @@ const ClassTwo = () => {
   });
 
   return (
-    <ModalPortal>
-      <S.CheckClassWrap>
-        <ClassSideBar />
-        <S.CheckClassMain>
-          <S.ViewInfomationWrap>
-            <S.SelectClassImgWrap>
-              {/* {imgData.map((item, idx) => (
-                <div key={idx} onClick={() => handleClickMenu(item.roomName)}>
-                  <img src={item.default} onClick={ModalButton} />
-                  <span>{item.roomName}</span>
-                </div>
-              ))} */}
-              {floorData.map((item, idx) => (
-                <S.SelectClassImg key={idx} style={{ display: "flex" }}>
-                  <img src={LabD} onClick={ModalButton} />
-                  <span style={{ position: "absolute", color: "white" }}>{item.roomName}</span>
-                </S.SelectClassImg>
-              ))}
-            </S.SelectClassImgWrap>
+    <S.CheckClassWrap>
+      <ClassSideBar />
+      <S.CheckClassMain>
+        <S.ViewInfomationWrap>
+          <S.SelectClassImgWrap style={{ position: "relative" }}>
+            {floorData.map((item, idx) => (
+              <S.SelectClassImg key={idx} style={{ display: "flex" }} onClick={() => handleRoomName(item.roomName)}>
+                <img src={LabD} onClick={ModalButton} />
+                <span style={{ position: "absolute", color: "white" }}>{item.roomName}</span>
+              </S.SelectClassImg>
+            ))}
+          </S.SelectClassImgWrap>
 
+          <ModalPortal>
             {isClick === true ? <Modal DeleteButton={ModalButton} roomName={className} /> : <></>}
-          </S.ViewInfomationWrap>
-        </S.CheckClassMain>
-      </S.CheckClassWrap>
-    </ModalPortal>
+          </ModalPortal>
+        </S.ViewInfomationWrap>
+      </S.CheckClassMain>
+    </S.CheckClassWrap>
   );
 };
 
