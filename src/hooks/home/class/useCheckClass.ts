@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import UseSideBarNavigation from "src/utils/SideBar/useSideBarNavigation";
-
-import token from "../../../libs/token/token";
 import LabD from "src/assets/imgs/LabD.svg";
 
 import { bbeepAxios } from "src/libs/axios/customAxios";
@@ -10,10 +8,8 @@ import { errorToast } from "src/libs/toast/toast";
 import { useRecoilState } from "recoil";
 import { ClassAtom } from "src/stores/home/checkClass/class.store";
 import { ClassStuAtom } from "src/stores/home/checkClass/classStu.store";
-import { FloorType } from "@src/types/home/class/floor.types";
-import axios from "axios";
-import { ACCESS_TOKEN_KEY } from "@src/constants/token/token.constants";
-import { ClassStuList } from "@src/types/home/class/classStu.types";
+import { FloorType } from "src/types/home/class/floor.types";
+import { ClassStuList } from "src/types/home/class/classStu.types";
 
 const useCheckClass = () => {
   const location = useLocation();
@@ -33,7 +29,7 @@ const useCheckClass = () => {
   useEffect(() => {
     checkClass();
     checkClassStu();
-  }, [isClickMenu]);
+  }, []);
 
   useEffect(() => {
     loadFloorData();
@@ -64,7 +60,7 @@ const useCheckClass = () => {
       await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=${isClickCategory.substring(0, 1)}`).then((res) => {
         setCode(res.data.code);
         setFloorData(res.data);
-      });
+      }); 
     } catch (error) {
       console.log("Error", error);
     }

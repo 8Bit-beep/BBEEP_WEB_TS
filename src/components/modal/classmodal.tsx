@@ -10,7 +10,7 @@ interface ModalProps {
 }
 
 const Modal = ({ DeleteButton, roomName }: ModalProps) => {
-  const { floorData, classStuList } = useCheckClass();
+  const { classStuList } = useCheckClass();
 
   return (
     <S.Wrapper onClick={DeleteButton}>
