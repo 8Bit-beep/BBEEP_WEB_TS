@@ -28,15 +28,12 @@ const useCheckClass = () => {
   const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const imgData = [{ default: `${LabD}`, roomName: className }];
-  const floor = Number(isClickCategory.substring(0, 1));
+  const [array, setArray] = useState<string[]>([]);
 
-  // console.log(
-  //   "dkd",
-  //   floorData.map((item) => item.roomName)
-  // );
+  console.log("dkd", className);
   console.log(
     "kdkd",
-    classStuList.map((item) => item.userName)
+    floorData.map((item) => item.idx)
   );
 
   useEffect(() => {
@@ -80,9 +77,14 @@ const useCheckClass = () => {
   const loadFloorData = async () => {
     try {
       await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=1`).then((res) => {
-        setCode(res.data);
+        setCode(res.data.code);
         setFloorData(res.data);
+        setClassName(res.data.roomName);
+
+        
+        
       });
+      
     } catch (error) {
       console.log("Error", error);
     }
@@ -108,6 +110,7 @@ const useCheckClass = () => {
     classList,
     classStuList,
     floorData,
+    array,
     handleImgChange,
     handleClickMenu,
     handleClickCls,

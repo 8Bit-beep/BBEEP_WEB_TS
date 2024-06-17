@@ -61,6 +61,12 @@ export const SelectClassImgWrap = styled.div`
   cursor: pointer;
 `;
 
+export const SelectClassImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const ViewInfomationWrap = styled.div`
   width: 100%;
   height: 100%;

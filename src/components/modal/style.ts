@@ -45,14 +45,20 @@ export const ModalListWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px 25px;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ModalListContent = styled.div`
-  width: 300px;
+  display: flex;
+  width: 250px;
   height: 60px;
   background-color: #fff;
   box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ModalCancleButton = styled.button`
