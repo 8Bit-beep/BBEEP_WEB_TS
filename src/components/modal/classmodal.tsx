@@ -6,30 +6,16 @@ import useCheckClass from "src/hooks/home/class/useCheckClass";
 
 interface ModalProps {
   DeleteButton: () => void;
+  roomName: string;
 }
 
-const Modal = ({ DeleteButton }: ModalProps) => {
+const Modal = ({ DeleteButton, roomName }: ModalProps) => {
   const { floorData, classStuList } = useCheckClass();
-
-  const TargetIdx = () => {
-    for (let i = 0; i < floorData.length; i++) {
-      console.log(`Comparing roomName: ${floorData[i].roomName} with idx: ${floorData[i].idx}`);
-      if (floorData[i].roomName === "project2") {
-        return i;
-      }
-    }
-    return -1;
-  };
-
-  const targetIdx = TargetIdx();
-  console.log("타겟 아이디", targetIdx);
 
   return (
     <S.Wrapper onClick={DeleteButton}>
       <S.ModalWrapper>
-        {floorData.map((item, idx) =>
-          idx === targetIdx ? <S.ModalTitle key={idx}>{item.roomName}</S.ModalTitle> : null
-        )}
+        <S.ModalTitle>{roomName}</S.ModalTitle>
 
         <S.ModalListWrap>
           {classStuList.map((item, idx) => (

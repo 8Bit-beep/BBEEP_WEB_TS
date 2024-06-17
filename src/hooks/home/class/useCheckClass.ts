@@ -30,12 +30,6 @@ const useCheckClass = () => {
   const imgData = [{ default: `${LabD}`, roomName: className }];
   const [array, setArray] = useState<string[]>([]);
 
-  console.log("dkd", className);
-  console.log(
-    "kdkd",
-    floorData.map((item) => item.idx)
-  );
-
   useEffect(() => {
     checkClass();
     checkClassStu();
@@ -44,15 +38,6 @@ const useCheckClass = () => {
   useEffect(() => {
     loadFloorData();
   }, [isClickCategory]);
-
-  // className 업데이트 후에 실행될 useEffect 추가
-  useEffect(() => {
-    if (classList) {
-      // className이 업데이트된 후 실행할 작업
-      // console.log("ClassName has been updated:", classList);
-      // 필요한 추가 작업을 이곳에 작성
-    }
-  }, [classList]);
 
   const checkClass = async () => {
     try {
@@ -76,18 +61,17 @@ const useCheckClass = () => {
 
   const loadFloorData = async () => {
     try {
-      await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=1`).then((res) => {
+      await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=${isClickCategory.substring(0, 1)}`).then((res) => {
         setCode(res.data.code);
         setFloorData(res.data);
-        setClassName(res.data.roomName);
-
-        
-        
       });
-      
     } catch (error) {
       console.log("Error", error);
     }
+  };
+
+  const handleRoomName = (room: string) => {
+    setClassName(room);
   };
 
   const handleClickMenu = (itemName: string) => {
@@ -109,11 +93,13 @@ const useCheckClass = () => {
     isClickMenu,
     classList,
     classStuList,
+    className,
     floorData,
     array,
     handleImgChange,
     handleClickMenu,
     handleClickCls,
+    handleRoomName,
   };
 };
 
