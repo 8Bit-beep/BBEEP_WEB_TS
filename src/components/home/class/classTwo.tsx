@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClassSideBar from "src/components/common/sidebar/classsidebar";
 import * as S from "./style";
 import useCheckClass from "src/hooks/home/class/useCheckClass";
@@ -17,6 +17,7 @@ const ClassTwo = () => {
     floorData,
     className,
     handleRoomName,
+    loadFloorData,
   } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 

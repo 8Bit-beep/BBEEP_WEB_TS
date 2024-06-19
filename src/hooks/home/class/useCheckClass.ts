@@ -20,7 +20,7 @@ const useCheckClass = () => {
   const [classList, setClassList] = useRecoilState(ClassAtom);
   const [classStuList, setClassStuList] = useState<ClassStuList[]>([]);
   const [floorData, setFloorData] = useState<FloorType[]>([]);
-  const [code, setCode] = useState<string>();
+  const [code, setCode] = useState<string>("");
   const [className, setClassName] = useState<string>("");
   const { isClickCategory } = UseSideBarNavigation({ location, navigate });
   const imgData = [{ default: `${LabD}`, roomName: className }];
@@ -68,6 +68,10 @@ const useCheckClass = () => {
       console.log("Error", error);
     }
   };
+
+  // const handleRoomCode = (roomCode: number) => {
+  //   setCode(roomCode);
+  // };
 
   const handleRoomName = (room: string) => {
     setClassName(room);
