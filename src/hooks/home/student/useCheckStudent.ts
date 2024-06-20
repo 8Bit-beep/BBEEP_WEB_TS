@@ -86,7 +86,7 @@ const useCheckStudent = () => {
         })
         .then((res) => {
           setStudentClassList(res.data);
-          console.log(studentClassList);
+          console.log("앙 존나 기모찌 에러", studentClassList);
         });
     } catch (error) {
       errorToast("학생 조회 실패");

@@ -7,30 +7,12 @@ import Modal from "src/components/modal/classmodal";
 import LabD from "src/assets/imgs/LabD.svg";
 
 const ClassTwo = () => {
-  const {
-    isClickCls,
-    handleClickMenu,
-    classList,
-    handleClickCls,
-    imgData,
-    code,
-    classStuList,
-    floorData,
-    className,
-    handleSetCode,
-    handleRoomName,
-    loadFloorData,
-
-  } = useCheckClass();
+  const { code, floorData, className, handleSetCode, handleRoomName } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
     setIsClick((prev) => !prev);
   };
-
-  floorData.map((item) => {
-    console.log(item.roomName);
-  });
 
   return (
     <S.CheckClassWrap>
@@ -39,10 +21,14 @@ const ClassTwo = () => {
         <S.ViewInfomationWrap>
           <S.SelectClassImgWrap style={{ position: "relative" }}>
             {floorData.map((item, idx) => (
-              <S.SelectClassImg key={idx} style={{ display: "flex" }} onClick={() => {
-                handleSetCode(item.code)
-                handleRoomName(item.roomName)
-                }}>
+              <S.SelectClassImg
+                key={idx}
+                style={{ display: "flex" }}
+                onClick={() => {
+                  handleSetCode(item.code);
+                  handleRoomName(item.roomName);
+                }}
+              >
                 <img src={LabD} onClick={ModalButton} />
                 <span style={{ position: "absolute", color: "white" }}>{item.roomName}</span>
               </S.SelectClassImg>

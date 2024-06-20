@@ -7,7 +7,7 @@ import Modal from "src/components/modal/classmodal";
 import LabD from "src/assets/imgs/LabD.svg";
 
 const ClassOne = () => {
-  const { floorData, handleRoomName, className, code } = useCheckClass();
+  const { floorData, handleRoomName, handleSetCode, className, code } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -22,7 +22,10 @@ const ClassOne = () => {
           <S.ViewInfomationWrap>
             <S.SelectClassImgWrap style={{ position: "relative" }}>
               {floorData.map((item, idx) => (
-                <S.SelectClassImg style={{ position: "relative" }} onClick={() => handleRoomName(item.roomName)}>
+                <S.SelectClassImg style={{ position: "relative" }} onClick={() => {
+                  handleRoomName(item.roomName)
+                  handleSetCode(item.code)
+                }}>
                   <img src={LabD} key={idx} onClick={ModalButton} />
                   <span style={{ position: "absolute", color: "white" }}>{item.roomName}</span>
                 </S.SelectClassImg>

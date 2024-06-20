@@ -7,8 +7,7 @@ import Modal from "src/components/modal/classmodal";
 import LabD from "src/assets/imgs/LabD.svg";
 
 const ClassThree = () => {
-  const { isClickCls, handleClickMenu, classList, handleClickCls, imgData, classStuList, floorData, className, code } =
-    useCheckClass();
+  const { floorData, className, code } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {

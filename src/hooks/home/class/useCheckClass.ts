@@ -31,11 +31,14 @@ const useCheckClass = () => {
   }, [className]);
 
   // useEffect(() => {
-  //   // checkClassStu() : null;
+  //   checkClassStu() : null;
   // }, [code]);
 
   useEffect(() => {
-    loadFloorData();
+    if (isClickCategory.includes("층")) {
+      console.log(isClickCategory);
+      loadFloorData();
+    }
   }, [isClickCategory]);
 
   const checkClass = async () => {
