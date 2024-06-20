@@ -13,11 +13,14 @@ const ClassTwo = () => {
     classList,
     handleClickCls,
     imgData,
+    code,
     classStuList,
     floorData,
     className,
+    handleSetCode,
     handleRoomName,
     loadFloorData,
+
   } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
@@ -36,7 +39,10 @@ const ClassTwo = () => {
         <S.ViewInfomationWrap>
           <S.SelectClassImgWrap style={{ position: "relative" }}>
             {floorData.map((item, idx) => (
-              <S.SelectClassImg key={idx} style={{ display: "flex" }} onClick={() => handleRoomName(item.roomName)}>
+              <S.SelectClassImg key={idx} style={{ display: "flex" }} onClick={() => {
+                handleSetCode(item.code)
+                handleRoomName(item.roomName)
+                }}>
                 <img src={LabD} onClick={ModalButton} />
                 <span style={{ position: "absolute", color: "white" }}>{item.roomName}</span>
               </S.SelectClassImg>
@@ -44,7 +50,7 @@ const ClassTwo = () => {
           </S.SelectClassImgWrap>
 
           <ModalPortal>
-            {isClick === true ? <Modal DeleteButton={ModalButton} roomName={className} /> : <></>}
+            {isClick === true ? <Modal DeleteButton={ModalButton} roomName={className} roomId={code} /> : <></>}
           </ModalPortal>
         </S.ViewInfomationWrap>
       </S.CheckClassMain>

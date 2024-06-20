@@ -30,9 +30,9 @@ const useCheckClass = () => {
     checkClass();
   }, [className]);
 
-  useEffect(() => {
-    checkClassStu();
-  }, [code]);
+  // useEffect(() => {
+  //   // checkClassStu() : null;
+  // }, [code]);
 
   useEffect(() => {
     loadFloorData();
@@ -48,9 +48,9 @@ const useCheckClass = () => {
     }
   };
 
-  const checkClassStu = async () => {
+  const checkClassStu = async (roomId: string) => {
     try {
-      await bbeepAxios.get(`/beep/attendances?code=${code}`).then((res) => {
+      await bbeepAxios.get(`/beep/attendances?code=${roomId}`).then((res) => {
         setClassStuList(res.data);
       });
     } catch (error) {
@@ -61,11 +61,13 @@ const useCheckClass = () => {
   const loadFloorData = async () => {
     try {
       await bbeepAxios.get(`/beep/rooms/floor?page=1&size=10&floor=${isClickCategory.substring(0, 1)}`).then((res) => {
-        setCode(res.data.code);
-        setFloorData(res.data);
+        // console.log(res.request);
+        setFloorData([...JSON.parse(res.request.response)]);
+        // setCode(res.data.code);
+        // setFloorData(res.data);
       });
-    } catch (error) {
-      console.log("Error", error);
+    } catch (error: any) {
+      console.error("앙기모찌Error", error.config);
     }
   };
 
@@ -89,6 +91,10 @@ const useCheckClass = () => {
     setIsClicked(itemName);
   };
 
+  const handleSetCode = (itemCode: string) => {
+    setCode(itemCode);
+  };
+
   return {
     imgData,
     isClicked,
@@ -99,11 +105,14 @@ const useCheckClass = () => {
     className,
     floorData,
     array,
+    code,
     loadFloorData,
     handleImgChange,
     handleClickMenu,
     handleClickCls,
     handleRoomName,
+    handleSetCode,
+    checkClassStu,
   };
 };
 

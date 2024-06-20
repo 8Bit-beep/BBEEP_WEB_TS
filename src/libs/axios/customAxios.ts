@@ -22,6 +22,7 @@ const createAxiosInstance = (config?: AxiosRequestConfig) => {
 export const bbeepAxios = createAxiosInstance({
   baseURL: CONFIG.serverUrl,
   headers: {
+    "Content-Type" : "application/json",
     [REQUEST_TOKEN_KEY]: `Bearer ${token.getToken(ACCESS_TOKEN_KEY)}`,
   },
 });
