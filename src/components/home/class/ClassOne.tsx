@@ -7,7 +7,7 @@ import Modal from "src/components/modal/classmodal";
 import LabD from "src/assets/imgs/LabD.svg";
 
 const ClassOne = () => {
-  const { floorData, handleRoomName, className } = useCheckClass();
+  const { floorData, handleRoomName, className, code } = useCheckClass();
   const [isClick, setIsClick] = useState(false);
 
   const ModalButton = () => {
@@ -28,7 +28,7 @@ const ClassOne = () => {
                 </S.SelectClassImg>
               ))}
             </S.SelectClassImgWrap>
-            {isClick === true ? <Modal DeleteButton={ModalButton} roomName={className} /> : <></>}
+            {isClick === true ? <Modal DeleteButton={ModalButton} roomName={className} roomId={code}/> : <></>}
           </S.ViewInfomationWrap>
         </S.CheckClassMain>
       </S.CheckClassWrap>
